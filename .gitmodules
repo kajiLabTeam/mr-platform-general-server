@@ -1,0 +1,12 @@
+[submodule "mr-platform-relay-server"]
+	path = mr-platform-relay-server
+	url = https://github.com/kajiLabTeam/mr-platform-relay-server
+[submodule "mr-platform-recommend-contents-server"]
+	path = mr-platform-recommend-contents-server
+	url = https://github.com/kajiLabTeam/mr-platform-recommend-contents-server
+[submodule "mr-platform-digital-twin-server"]
+	path = mr-platform-digital-twin-server
+	url = https://github.com/kajiLabTeam/mr-platform-digital-twin-server
+[submodule "mr-platform-contents-server"]
+	path = mr-platform-contents-server
+	url = https://github.com/kajiLabTeam/mr-platform-contents-server
