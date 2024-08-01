@@ -4,7 +4,7 @@ services:
     image: postgres:15
     restart: always
     ports:
-      - "5434:5432"
+      - "5433:5432"
     volumes:
       - ./docker/postgres/init:/docker-entrypoint-initdb.d
       - ./docker/postgres/data:/var/lib/postgresql/data
@@ -42,8 +42,6 @@ services:
     volumes:
       - ./mr-platform-digital-twin-server/src:/go/src/app
       - ./mr-platform-digital-twin-server/docker/go/log:/go/src/log
-    depends_on:
-      - "postgres"
     ports:
       - 8087:8000
     networks:
@@ -60,8 +58,6 @@ services:
     volumes:
       - ./mr-platform-recommend-contents-server/src:/go/src/app
       - ./mr-platform-recommend-contents-server/docker/go/log:/go/src/log
-    depends_on:
-      - "postgres"
     ports:
       - 8086:8000
     networks:
@@ -85,6 +81,59 @@ services:
     networks:
       - mr-platform
 
+  user-manegement-golang:
+    container_name: ${GO_CONTAINER_HOST_USER}
+    hostname: ${GO_HOST}
+    tty: true
+    env_file: .env
+    build:
+      context: .
+      dockerfile: ./mr-platform-user-management-server/docker/go/Dockerfile
+    volumes:
+      - ./mr-platform-user-management-server/src:/go/src/app
+      - ./mr-platform-user-management-server/docker/go/log:/go/src/log
+    depends_on:
+      - "postgres"
+    ports:
+      - 8088:8000
+    networks:
+      - mr-platform
+
+  organization-management-golang:
+    container_name: ${GO_CONTAINER_HOST_ORGANIZATION}
+    hostname: ${GO_HOST}
+    tty: true
+    env_file: .env
+    build:
+      context: .
+      dockerfile: ./mr-platform-organization-management-server/docker/go/Dockerfile
+    volumes:
+      - ./mr-platform-organization-management-server/src:/go/src/app
+      - ./mr-platform-organization-management-server/docker/go/log:/go/src/log
+    depends_on:
+      - "postgres"
+    ports:
+      - 8090:8000
+    networks:
+      - mr-platform
+
+  city-building-management-golang:
+    container_name: ${GO_CONTAINER_HOST_CITY_BUILDING}
+    hostname: ${GO_HOST}
+    tty: true
+    env_file: .env
+    build:
+      context: .
+      dockerfile: ./mr-platform-city-building-management-server/docker/go/Dockerfile
+    volumes:
+      - ./mr-platform-city-building-management-server/src:/go/src/app
+      - ./mr-platform-city-building-management-server/docker/go/log:/go/src/log
+    depends_on:
+      - "postgres"
+    ports:
+      - 8091:8000
+    networks:
+      - mr-platform
 
 networks:
   mr-platform:
