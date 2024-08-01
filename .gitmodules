@@ -10,3 +10,12 @@
 [submodule "mr-platform-contents-server"]
 	path = mr-platform-contents-server
 	url = https://github.com/kajiLabTeam/mr-platform-contents-server
+[submodule "mr-platform-user-management-server"]
+	path = mr-platform-user-management-server
+	url = https://github.com/kajiLabTeam/mr-platform-user-management-server
+[submodule "mr-platform-organization-management-server"]
+	path = mr-platform-organization-management-server
+	url = https://github.com/kajiLabTeam/mr-platform-organization-management-server
+[submodule "mr-platform-city-building-management-server"]
+	path = mr-platform-city-building-management-server
+	url = https://github.com/kajiLabTeam/mr-platform-city-building-management-server

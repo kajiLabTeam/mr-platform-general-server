@@ -23,5 +23,6 @@ go.work.sum
 
 .DS_Store
 docker/postgres/data/
+*/docker/go/log/*
 
 .env
