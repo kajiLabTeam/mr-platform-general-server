@@ -1,9 +1,14 @@
-\c mr-platform;
+-- データベースの作成
+CREATE DATABASE mr_platform_contents;
+CREATE DATABASE mr_platform_user;
+CREATE DATABASE mr_platform_organization;
+CREATE DATABASE mr_platform_building;
+
+\c mr_platform_contents;
 
 -- Enum Type for Contents
 CREATE TYPE content_type AS ENUM (
-    'html2d', 
-    'model3d'
+    'html2d'
 );
 
 -- Enum Type for Text Type
@@ -12,10 +17,10 @@ CREATE TYPE text_type AS ENUM (
     'markdown'
 );
 
--- Ceraate PublicSpaces Table
-CREATE TABLE public_spaces (
+--Create Public Spaces Table
+CREATE TABLE layer (
     id VARCHAR(36) PRIMARY KEY,
-    organization_id VARCHAR(36) NOT NULL,
+    organization_id VARCHAR(36),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE,
     deleted_at TIMESTAMP WITH TIME ZONE
@@ -24,9 +29,8 @@ CREATE TABLE public_spaces (
 -- Create Contents Table
 CREATE TABLE contents (
     id VARCHAR(36) PRIMARY KEY,
-    public_space_id VARCHAR(36) REFERENCES public_spaces(id),
+    layer_id VARCHAR(36) REFERENCES layer(id),
     type content_type NOT NULL,
-    domain VARCHAR(255) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE,
     deleted_at TIMESTAMP WITH TIME ZONE
@@ -39,28 +43,14 @@ CREATE TABLE html2d (
     location_x DOUBLE PRECISION NOT NULL,
     location_y DOUBLE PRECISION NOT NULL,
     location_z DOUBLE PRECISION NOT NULL,
-    rotation_row DOUBLE PRECISION NOT NULL,
+    rotation_roll DOUBLE PRECISION NOT NULL,
     rotation_pitch DOUBLE PRECISION NOT NULL,
     rotation_yaw DOUBLE PRECISION NOT NULL,
+    size_width VARCHAR(255) NOT NULL,
+    size_height VARCHAR(255) NOT NULL,
     text_type text_type NOT NULL,
     text_url VARCHAR(255) NOT NULL,
     style_url VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP WITH TIME ZONE,
-    deleted_at TIMESTAMP WITH TIME ZONE
-);
-
--- Create model3d Table
-CREATE TABLE model3d (
-    id VARCHAR(36) PRIMARY KEY,
-    content_id VARCHAR(36) REFERENCES contents(id),
-    location_x DOUBLE PRECISION NOT NULL,
-    location_y DOUBLE PRECISION NOT NULL,
-    location_z DOUBLE PRECISION NOT NULL,
-    rotation_row DOUBLE PRECISION NOT NULL,
-    rotation_pitch DOUBLE PRECISION NOT NULL,
-    rotation_yaw DOUBLE PRECISION NOT NULL,
-    file_url VARCHAR(255) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE,
     deleted_at TIMESTAMP WITH TIME ZONE
