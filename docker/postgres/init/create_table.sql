@@ -20,7 +20,6 @@ CREATE TYPE text_type AS ENUM (
 --Create Public Spaces Table
 CREATE TABLE layer (
     id VARCHAR(36) PRIMARY KEY,
-    organization_id VARCHAR(36),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE,
     deleted_at TIMESTAMP WITH TIME ZONE
