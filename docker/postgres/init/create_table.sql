@@ -1,10 +1,6 @@
--- データベースの作成
-CREATE DATABASE mr_platform_contents;
-CREATE DATABASE mr_platform_user;
-CREATE DATABASE mr_platform_organization;
-CREATE DATABASE mr_platform_building;
+CREATE USER mr_platform_contents WITH PASSWORD 'mr_platform_contents';
 
-\c mr_platform_contents;
+\c mr_platform;
 
 -- Enum Type for Contents
 CREATE TYPE content_type AS ENUM (
@@ -54,3 +50,8 @@ CREATE TABLE html2d (
     updated_at TIMESTAMP WITH TIME ZONE,
     deleted_at TIMESTAMP WITH TIME ZONE
 );
+
+GRANT ALL PRIVILEGES ON TABLE layer TO mr_platform_contents;
+GRANT ALL PRIVILEGES ON TABLE contents TO mr_platform_contents;
+GRANT ALL PRIVILEGES ON TABLE html2d TO mr_platform_contents;
+
