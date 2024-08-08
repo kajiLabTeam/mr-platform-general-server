@@ -1,0 +1,75 @@
+export type AbsoluteAddress = {
+  x: number;
+  y: number;
+  z: number;
+};
+
+export type ThisLocation = {
+  x: number;
+  y: number;
+  z: number;
+};
+
+export type Rotation = {
+  roll: number;
+  pitch: number;
+  yaw: number;
+};
+
+export type Size = {
+  width: string;
+  height: string;
+};
+
+export type PublicSpace = {
+  layerId: string;
+};
+
+export type Content = {
+  contentId: string;
+  contentType: string;
+  content: Html2d;
+};
+
+export type RequestGetContents = {
+  contentIds: string[];
+};
+
+export type RequestCreateContent = {
+  layerId: string;
+  contentType: string;
+  content: Html2d;
+};
+
+export type ResponseCreateContent = {
+  contentId: string;
+  contentType: string;
+  content: Html2d;
+};
+
+export type RequestUpdateContent = {
+  contentId: string;
+  contentType: string;
+  content: Html2d;
+};
+
+export type RequestCreateLayer = {
+  layerId: string;
+};
+
+export type ResponseCreateLayer = {
+  layerId: string;
+};
+
+export type ResponseGetLayerContentIds = {
+  contentIds: string[];
+};
+
+export type Html2d = {
+  location: ThisLocation;
+  rotation: Rotation;
+  size: Size;
+  textType: string;
+  textUrl: string;
+  styleUrl: string;
+};
