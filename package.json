@@ -1,0 +1,23 @@
+{
+  "name": "mr-platform-general-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:kajiLabTeam/mr-platform-general-server.git",
+  "author": "kanakanho",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.46.0",
+    "@types/node": "^22.1.0",
+    "@typescript-eslint/eslint-plugin": "^7.5.0",
+    "@typescript-eslint/parser": "^7.5.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-import-access": "^2.2.2",
+    "eslint-plugin-unused-imports": "^3.1.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.3"
+  }
+}
