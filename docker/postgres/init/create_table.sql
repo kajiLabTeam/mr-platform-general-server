@@ -36,9 +36,9 @@ CREATE TABLE contents (
 CREATE TABLE html2d (
     id VARCHAR(36) PRIMARY KEY,
     content_id VARCHAR(36) REFERENCES contents(id),
-    location_x DOUBLE PRECISION NOT NULL,
-    location_y DOUBLE PRECISION NOT NULL,
-    location_z DOUBLE PRECISION NOT NULL,
+    location_lat DOUBLE PRECISION NOT NULL,
+    location_lon DOUBLE PRECISION NOT NULL,
+    location_height DOUBLE PRECISION NOT NULL,
     rotation_roll DOUBLE PRECISION NOT NULL,
     rotation_pitch DOUBLE PRECISION NOT NULL,
     rotation_yaw DOUBLE PRECISION NOT NULL,
@@ -57,9 +57,9 @@ CREATE TABLE log_html2d (
     id VARCHAR(36) PRIMARY KEY,
     html2d_id VARCHAR(36) REFERENCES html2d(id),
     content_id VARCHAR(36) REFERENCES contents(id),
-    location_x DOUBLE PRECISION NOT NULL,
-    location_y DOUBLE PRECISION NOT NULL,
-    location_z DOUBLE PRECISION NOT NULL,
+    location_lat DOUBLE PRECISION NOT NULL,
+    location_lon DOUBLE PRECISION NOT NULL,
+    location_height DOUBLE PRECISION NOT NULL,
     rotation_roll DOUBLE PRECISION NOT NULL,
     rotation_pitch DOUBLE PRECISION NOT NULL,
     rotation_yaw DOUBLE PRECISION NOT NULL,
@@ -73,6 +73,7 @@ CREATE TABLE log_html2d (
     deleted_at TIMESTAMP WITH TIME ZONE
 );
 
+-- mr_platform_contents にはすべての権限を付与
 GRANT ALL PRIVILEGES ON TABLE layer TO mr_platform_contents;
 GRANT ALL PRIVILEGES ON TABLE contents TO mr_platform_contents;
 GRANT ALL PRIVILEGES ON TABLE html2d TO mr_platform_contents;
