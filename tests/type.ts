@@ -1,13 +1,7 @@
-export type AbsoluteAddress = {
-  x: number;
-  y: number;
-  z: number;
-};
-
-export type ThisLocation = {
-  x: number;
-  y: number;
-  z: number;
+export type UserLocation = {
+  lat: number;
+  lon: number;
+  height: number;
 };
 
 export type Rotation = {
@@ -66,7 +60,7 @@ export type ResponseGetLayerContentIds = {
 };
 
 export type Html2d = {
-  location: ThisLocation;
+  location: UserLocation;
   rotation: Rotation;
   size: Size;
   textType: string;
