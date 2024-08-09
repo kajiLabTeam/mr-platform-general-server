@@ -24,5 +24,5 @@ module.exports = {
     'no-else-return': 'error',
     //厳密等価演算子使用させる
     eqeqeq: ['error', 'smart'],
-  }
+  },
 };
