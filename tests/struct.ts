@@ -1,13 +1,16 @@
 import { randomUUID } from 'crypto';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export const baseurls = {
-  relay: 'http://localhost:8084',
-  twin: 'http://localhost:8087',
-  recommend: 'http://localhost:8086',
-  contents: 'http://localhost:8089',
-  user: 'http://localhost:8088',
-  organization: 'http://localhost:8090',
-  city: 'http://localhost:8091',
+  relay: process.env.RELAY_SERVER_URL_LOCAL,
+  twin: process.env.DIGITAL_TWIN_SERVER_URL_LOCAL,
+  recommend: process.env.RECOMMEND_CONTENTS_SERVER_URL_LOCAL,
+  contents: process.env.CONTENTS_SERVER_URL_LOCAL,
+  user: process.env.USER_SERVER_URL_LOCAL,
+  organization: process.env.ORGANIZATION_SERVER_URL_LOCAL,
+  city: process.env.CITY_BUILDING_SERVER_URL_LOCAL,
 };
 
 export class Content {
@@ -52,9 +55,9 @@ export class Content {
       contentType: 'html2d',
       content: {
         location: {
-          x: this.tryCount,
-          y: 0,
-          z: 0,
+          lat: this.tryCount,
+          lon: 0,
+          height: 0,
         },
         rotation: {
           roll: 0,
@@ -79,9 +82,9 @@ export class Content {
       contentType: 'html2d',
       content: {
         location: {
-          x: this.tryCount,
-          y: 0,
-          z: 0,
+          lat: this.tryCount,
+          lon: 0,
+          height: 0,
         },
         rotation: {
           roll: 0,
