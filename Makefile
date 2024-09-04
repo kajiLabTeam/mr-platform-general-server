@@ -1,5 +1,8 @@
 -include .env
 
+data-init:
+	cd ./docker/neo4j/init && go build && ./neo4j-h3-init
+
 up:
 	docker compose build && docker compose up -d
 

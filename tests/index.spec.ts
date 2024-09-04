@@ -59,6 +59,7 @@ test('health', async ({ request }) => {
       'Content-Type': 'application/json',
     },
   });
+  console.log('コンテンツサーバー：レイヤー作成');
   console.log(await layerResponse.text());
   expect(layerResponse.status()).toBe(201);
 
@@ -69,6 +70,7 @@ test('health', async ({ request }) => {
       'Content-Type': 'application/json',
     },
   });
+  console.log('コンテンツサーバー：コンテンツ作成');
   console.log(await contentResponse.text());
   expect(contentResponse.status()).toBe(201);
   const contentResponseJson = (await contentResponse.json()) as ResponseCreateContent;
@@ -83,6 +85,7 @@ test('health', async ({ request }) => {
       'Content-Type': 'application/json',
     },
   });
+  console.log('コンテンツサーバー：コンテンツ取得');
   console.log(await getContentResponse.text());
   expect(getContentResponse.status()).toBe(200);
 
@@ -93,6 +96,7 @@ test('health', async ({ request }) => {
       'Content-Type': 'application/json',
     },
   });
+  console.log('コンテンツサーバー：コンテンツ更新');
   console.log(await updateContentResponse.text());
   expect(updateContentResponse.status()).toBe(201);
 
@@ -106,8 +110,15 @@ test('health', async ({ request }) => {
       'Content-Type': 'application/json',
     },
   });
+  console.log('ユーザーサーバー：ユーザー作成');
   console.log(await userResponse.text());
-  expect(userResponse.status()).toBe(201);
+  try {
+    console.log(await layerResponse.text());
+    expect(layerResponse.status()).toBe(201);
+  } catch (error) {
+    console.error('Test failed. Response body:', await layerResponse.text());
+    throw error; // Rethrow the error to ensure the test still fails
+  }
 
   const setContentResponse = await request.fetch(`${baseurls.user}/api/content/set`, {
     method: 'post',
@@ -119,6 +130,7 @@ test('health', async ({ request }) => {
       'Content-Type': 'application/json',
     },
   });
+  console.log('ユーザーサーバー：ユーザーコンテンツ登録');
   console.log(await setContentResponse.text());
   expect(setContentResponse.status()).toBe(201);
 
@@ -131,6 +143,7 @@ test('health', async ({ request }) => {
       'Content-Type': 'application/json',
     },
   });
+  console.log('ユーザーサーバー：ユーザーコンテンツ取得');
   console.log(await contentIdsResponse.text());
   expect(contentIdsResponse.status()).toBe(200);
 });

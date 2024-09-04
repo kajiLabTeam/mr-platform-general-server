@@ -1,5 +1,17 @@
 # mr-platform-general-server
 
+## サーバーの起動方法
+
+1. Neo4j の初期化用データの作成
+```sh
+make data-init
+```
+
+2. サーバーの起動
+```sh
+make up
+```
+
 ## Commit Prefix
 
 | Prefix      | Description                |

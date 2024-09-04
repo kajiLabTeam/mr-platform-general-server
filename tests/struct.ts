@@ -53,19 +53,15 @@ export class Content {
     return {
       layerId: this.layerId,
       contentType: 'html2d',
+      location: {
+        lat: 35.174176,
+        lon: 136.9166945,
+        height: 0,
+        scale: 'small',
+      },
       content: {
-        location: {
-          lat: this.tryCount,
-          lon: 0,
-          height: 0,
-        },
-        rotation: {
-          roll: 0,
-          pitch: 0,
-          yaw: 0,
-        },
         size: {
-          width: '300px',
+          width: `${300 + this.tryCount}px`,
           height: '600px',
         },
         textType: 'markdown',
@@ -80,19 +76,15 @@ export class Content {
     return {
       contentId: this.contentId,
       contentType: 'html2d',
+      location: {
+        lat: 35.4132159,
+        lon: 136.7588979,
+        height: 0,
+        scale: 'small',
+      },
       content: {
-        location: {
-          lat: this.tryCount,
-          lon: 0,
-          height: 0,
-        },
-        rotation: {
-          roll: 0,
-          pitch: 0,
-          yaw: 0,
-        },
         size: {
-          width: '300px',
+          width: `${300 + this.tryCount}px`,
           height: '600px',
         },
         textType: 'markdown',

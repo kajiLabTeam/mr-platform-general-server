@@ -4,7 +4,7 @@ services:
     image: postgres:15
     restart: always
     ports:
-      - "5433:5432"
+      - 5433:5432
     volumes:
       - ./docker/postgres/init:/docker-entrypoint-initdb.d
       - ./docker/postgres/data:/var/lib/postgresql/data
@@ -58,6 +58,9 @@ services:
     volumes:
       - ./mr-platform-recommend-contents-server/src:/go/src/app
       - ./mr-platform-recommend-contents-server/docker/go/log:/go/src/log
+    depends_on:
+      postgres:
+        condition: service_started
     ports:
       - 8086:8000
     networks:
@@ -75,7 +78,11 @@ services:
       - ./mr-platform-contents-server/src:/go/src/app
       - ./mr-platform-contents-server/docker/go/log:/go/src/log
     depends_on:
-      - "postgres"
+      h3-neo4j:
+        condition: service_healthy
+      postgres:
+        condition: service_started
+
     ports:
       - 8089:8000
     networks:
@@ -93,7 +100,8 @@ services:
       - ./mr-platform-user-management-server/src:/go/src/app
       - ./mr-platform-user-management-server/docker/go/log:/go/src/log
     depends_on:
-      - "postgres"
+      postgres:
+        condition: service_started
     ports:
       - 8088:8000
     networks:
@@ -111,7 +119,8 @@ services:
       - ./mr-platform-organization-management-server/src:/go/src/app
       - ./mr-platform-organization-management-server/docker/go/log:/go/src/log
     depends_on:
-      - "postgres"
+      postgres:
+        condition: service_started
     ports:
       - 8090:8000
     networks:
@@ -129,11 +138,39 @@ services:
       - ./mr-platform-city-building-management-server/src:/go/src/app
       - ./mr-platform-city-building-management-server/docker/go/log:/go/src/log
     depends_on:
-      - "postgres"
+      postgres:
+        condition: service_started
     ports:
       - 8091:8000
     networks:
       - mr-platform
+
+  h3-neo4j:
+    container_name: 'h3-neo4j'
+    build:
+      context: .
+      dockerfile: ./docker/neo4j/Dockerfile
+    ports:
+      - 7487:7474
+      - 7973:7687
+    restart: on-failure
+    volumes:
+      - ./docker/neo4j/data:/data
+      - ./docker/neo4j/logs:/logs
+      - ./docker/neo4j/conf:/conf
+      - ./docker/neo4j/import:/import
+      - ./docker/neo4j/script:/script
+    networks:
+      - mr-platform
+    environment:
+      - NEO4J_AUTH=${NEO4J_USER}/${NEO4J_PASSWORD}
+      - EXTENSION_SCRIPT=/script/import_data.sh
+    command: neo4j
+    healthcheck:
+      test: 'curl -f http://localhost:7474 || exit 1'
+      timeout: 10s
+      retries: 5
+      start_period: 20s
 
 networks:
   mr-platform:
