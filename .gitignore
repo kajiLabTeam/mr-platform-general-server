@@ -31,3 +31,18 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Ignore neo4j
+docker/neo4j/logs/
+docker/neo4j/data/
+docker/neo4j/import/done
+
+zzz/*
+
+docker/neo4j/import/cell.csv
+docker/neo4j/import/cell_rel.csv
+
+docker/neo4j/init/import/cell.csv
+docker/neo4j/init/import/cell_rel.csv
+
+neo4j-h3-init
