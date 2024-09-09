@@ -18,6 +18,10 @@ export class Content {
   userId: string;
   contentId: string;
   tryCount: number;
+
+  lat = 35.174176;
+  lon = 136.9166945;
+
   constructor() {
     this.layerId = randomUUID();
     this.userId = randomUUID();
@@ -48,14 +52,22 @@ export class Content {
     this.contentId = contentId;
   }
 
+  getLatString() {
+    return this.lat.toString();
+  }
+
+  getLonString() {
+    return this.lon.toString();
+  }
+
   getContentWithLayerId() {
     this.tryCount++;
     return {
       layerId: this.layerId,
       contentType: 'html2d',
       location: {
-        lat: 35.174176,
-        lon: 136.9166945,
+        lat: this.lat,
+        lon: this.lon,
         height: 0,
         scale: 'small',
       },
@@ -79,6 +91,29 @@ export class Content {
       location: {
         lat: 35.4132159,
         lon: 136.7588979,
+        height: 0,
+        scale: 'small',
+      },
+      content: {
+        size: {
+          width: `${300 + this.tryCount}px`,
+          height: '600px',
+        },
+        textType: 'markdown',
+        textUrl: 'https://raw.githubusercontent.com/kajiLabTeam/mr-platform-general-server/main/README.md',
+        styleUrl: 'https://raw.githubusercontent.com/sindresorhus/github-markdown-css/main/github-markdown.css',
+      },
+    };
+  }
+
+  getContentWithContentIdReset() {
+    this.tryCount++;
+    return {
+      contentId: this.contentId,
+      contentType: 'html2d',
+      location: {
+        lat: this.lat,
+        lon: this.lon,
         height: 0,
         scale: 'small',
       },

@@ -26,6 +26,9 @@ services:
     volumes:
       - ./mr-platform-relay-server/src:/go/src/app
       - ./mr-platform-relay-server/docker/go/log:/go/src/log
+    depends_on:
+      postgres:
+        condition: service_started
     ports:
       - 8084:8000
     networks:
@@ -42,6 +45,9 @@ services:
     volumes:
       - ./mr-platform-digital-twin-server/src:/go/src/app
       - ./mr-platform-digital-twin-server/docker/go/log:/go/src/log
+    depends_on:
+      postgres:
+        condition: service_started
     ports:
       - 8087:8000
     networks:
@@ -61,6 +67,8 @@ services:
     depends_on:
       postgres:
         condition: service_started
+      cell_relation_neo4j:
+        condition: service_healthy
     ports:
       - 8086:8000
     networks:
@@ -78,11 +86,10 @@ services:
       - ./mr-platform-contents-server/src:/go/src/app
       - ./mr-platform-contents-server/docker/go/log:/go/src/log
     depends_on:
-      h3-neo4j:
-        condition: service_healthy
       postgres:
         condition: service_started
-
+      cell_relation_neo4j:
+        condition: service_healthy
     ports:
       - 8089:8000
     networks:
@@ -145,8 +152,8 @@ services:
     networks:
       - mr-platform
 
-  h3-neo4j:
-    container_name: 'h3-neo4j'
+  cell_relation_neo4j:
+    container_name: ${CELL_RELATION_NEO4J}
     build:
       context: .
       dockerfile: ./docker/neo4j/Dockerfile
