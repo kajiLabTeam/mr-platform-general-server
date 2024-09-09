@@ -100,6 +100,17 @@ test('health', async ({ request }) => {
   console.log(await updateContentResponse.text());
   expect(updateContentResponse.status()).toBe(201);
 
+  const updateContentResponse2 = await request.fetch(`${baseurls.contents}/api/content/update`, {
+    method: 'put',
+    data: content.getContentWithContentIdReset(),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  console.log('コンテンツサーバー：コンテンツ更新（元に戻す）');
+  console.log(await updateContentResponse2.text());
+  expect(updateContentResponse2.status()).toBe(201);
+
   // ユーザーの作成、ユーザーコンテンツの登録、ユーザーコンテンツの取得
   const userResponse = await request.fetch(`${baseurls.user}/api/user/create`, {
     method: 'post',
@@ -112,27 +123,40 @@ test('health', async ({ request }) => {
   });
   console.log('ユーザーサーバー：ユーザー作成');
   console.log(await userResponse.text());
-  try {
-    console.log(await layerResponse.text());
-    expect(layerResponse.status()).toBe(201);
-  } catch (error) {
-    console.error('Test failed. Response body:', await layerResponse.text());
-    throw error; // Rethrow the error to ensure the test still fails
-  }
+  expect(userResponse.status()).toBe(201);
 
-  const setContentResponse = await request.fetch(`${baseurls.user}/api/content/set`, {
+  // const setContentResponse = await request.fetch(`${baseurls.user}/api/content/set`, {
+  //   method: 'post',
+  //   data: {
+  //     userId: content.getUserId(),
+  //     contentIds: [content.getContentId()],
+  //   },
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  // });
+  // console.log('ユーザーサーバー：ユーザーコンテンツ登録');
+  // console.log(await setContentResponse.text());
+  // expect(setContentResponse.status()).toBe(201);
+
+  // 中継サーバーへのアクセス
+  const filePath = './file/rawDataFile.csv';
+  const formData = new FormData();
+  const blob = new Blob([''], { type: 'text/csv' });
+  formData.append('lat', content.getLatString());
+  formData.append('lon', content.getLonString());
+  formData.append('rawDataFile', blob, filePath);
+  const relayContentsResponse = await request.fetch(`${baseurls.relay}/api/contents`, {
     method: 'post',
-    data: {
-      userId: content.getUserId(),
-      contentIds: [content.getContentId()],
-    },
+    multipart: formData,
     headers: {
-      'Content-Type': 'application/json',
+      Authorization: content.getUserId(),
     },
   });
-  console.log('ユーザーサーバー：ユーザーコンテンツ登録');
-  console.log(await setContentResponse.text());
-  expect(setContentResponse.status()).toBe(201);
+  console.log('中継サーバー：コンテンツ取得');
+  console.log(await relayContentsResponse.text());
+  expect(relayContentsResponse.status()).toBe(200);
+
 
   const contentIdsResponse = await request.fetch(`${baseurls.user}/api/content/ids`, {
     method: 'get',
