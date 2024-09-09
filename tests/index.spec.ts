@@ -125,20 +125,6 @@ test('health', async ({ request }) => {
   console.log(await userResponse.text());
   expect(userResponse.status()).toBe(201);
 
-  // const setContentResponse = await request.fetch(`${baseurls.user}/api/content/set`, {
-  //   method: 'post',
-  //   data: {
-  //     userId: content.getUserId(),
-  //     contentIds: [content.getContentId()],
-  //   },
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  // });
-  // console.log('ユーザーサーバー：ユーザーコンテンツ登録');
-  // console.log(await setContentResponse.text());
-  // expect(setContentResponse.status()).toBe(201);
-
   // 中継サーバーへのアクセス
   const filePath = './file/rawDataFile.csv';
   const formData = new FormData();
@@ -156,7 +142,6 @@ test('health', async ({ request }) => {
   console.log('中継サーバー：コンテンツ取得');
   console.log(await relayContentsResponse.text());
   expect(relayContentsResponse.status()).toBe(200);
-
 
   const contentIdsResponse = await request.fetch(`${baseurls.user}/api/content/ids`, {
     method: 'get',
