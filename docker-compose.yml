@@ -14,6 +14,11 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     networks:
       - mr-platform
+    healthcheck:
+      test: 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB} || exit 1'
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   relay-server-golang:
     container_name: ${GO_CONTAINER_HOST_RELAY}
@@ -28,7 +33,7 @@ services:
       - ./mr-platform-relay-server/docker/go/log:/go/src/log
     depends_on:
       postgres:
-        condition: service_started
+        condition: service_healthy
     ports:
       - 8084:8000
     networks:
@@ -47,7 +52,7 @@ services:
       - ./mr-platform-digital-twin-server/docker/go/log:/go/src/log
     depends_on:
       postgres:
-        condition: service_started
+        condition: service_healthy
     ports:
       - 8087:8000
     networks:
@@ -66,7 +71,7 @@ services:
       - ./mr-platform-recommend-contents-server/docker/go/log:/go/src/log
     depends_on:
       postgres:
-        condition: service_started
+        condition: service_healthy
       cell_relation_neo4j:
         condition: service_healthy
     ports:
@@ -87,7 +92,7 @@ services:
       - ./mr-platform-contents-server/docker/go/log:/go/src/log
     depends_on:
       postgres:
-        condition: service_started
+        condition: service_healthy
       cell_relation_neo4j:
         condition: service_healthy
     ports:
@@ -108,7 +113,7 @@ services:
       - ./mr-platform-user-management-server/docker/go/log:/go/src/log
     depends_on:
       postgres:
-        condition: service_started
+        condition: service_healthy
     ports:
       - 8088:8000
     networks:
@@ -127,7 +132,7 @@ services:
       - ./mr-platform-organization-management-server/docker/go/log:/go/src/log
     depends_on:
       postgres:
-        condition: service_started
+        condition: service_healthy
     ports:
       - 8090:8000
     networks:
@@ -146,7 +151,7 @@ services:
       - ./mr-platform-city-building-management-server/docker/go/log:/go/src/log
     depends_on:
       postgres:
-        condition: service_started
+        condition: service_healthy
     ports:
       - 8091:8000
     networks:
