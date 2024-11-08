@@ -67,11 +67,10 @@ CREATE TABLE log_content_location (
 CREATE TABLE html2d (
     id VARCHAR(36) PRIMARY KEY,
     content_id VARCHAR(36) REFERENCES contents(id),
-    size_width VARCHAR(255) NOT NULL,
-    size_height VARCHAR(255) NOT NULL,
+    size_width integer NOT NULL,
+    size_height integer NOT NULL,
     text_type text_type NOT NULL,
     text_url VARCHAR(255) NOT NULL,
-    style_url VARCHAR(255) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE,
     deleted_at TIMESTAMP WITH TIME ZONE
@@ -82,11 +81,10 @@ CREATE TABLE log_html2d (
     id VARCHAR(36) PRIMARY KEY,
     html2d_id VARCHAR(36) REFERENCES html2d(id),
     content_id VARCHAR(36) REFERENCES contents(id),
-    size_width VARCHAR(255) NOT NULL,
-    size_height VARCHAR(255) NOT NULL,
+    size_width integer NOT NULL,
+    size_height integer NOT NULL,
     text_type text_type NOT NULL,
     text_url VARCHAR(255) NOT NULL,
-    style_url VARCHAR(255) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE,
     deleted_at TIMESTAMP WITH TIME ZONE

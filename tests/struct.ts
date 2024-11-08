@@ -73,12 +73,11 @@ export class Content {
       },
       content: {
         size: {
-          width: `${300 + this.tryCount}px`,
-          height: '600px',
+          width: 1920 + this.tryCount,
+          height: 1080,
         },
-        textType: 'markdown',
-        textUrl: 'https://raw.githubusercontent.com/kajiLabTeam/mr-platform-general-server/main/README.md',
-        styleUrl: 'https://raw.githubusercontent.com/sindresorhus/github-markdown-css/main/github-markdown.css',
+        textType: 'html',
+        textUrl: 'https://kanakanho.dev/',
       },
     };
   }
@@ -96,12 +95,11 @@ export class Content {
       },
       content: {
         size: {
-          width: `${300 + this.tryCount}px`,
-          height: '600px',
+          width: 1920 + this.tryCount,
+          height: 1080,
         },
         textType: 'markdown',
-        textUrl: 'https://raw.githubusercontent.com/kajiLabTeam/mr-platform-general-server/main/README.md',
-        styleUrl: 'https://raw.githubusercontent.com/sindresorhus/github-markdown-css/main/github-markdown.css',
+        textUrl: 'https://kanakanho.dev/',
       },
     };
   }
@@ -119,12 +117,11 @@ export class Content {
       },
       content: {
         size: {
-          width: `${300 + this.tryCount}px`,
-          height: '600px',
+          width: 1920 + this.tryCount,
+          height: 1080,
         },
-        textType: 'markdown',
-        textUrl: 'https://raw.githubusercontent.com/kajiLabTeam/mr-platform-general-server/main/README.md',
-        styleUrl: 'https://raw.githubusercontent.com/sindresorhus/github-markdown-css/main/github-markdown.css',
+        textType: 'html',
+        textUrl: 'https://kanakanho.dev/',
       },
     };
   }
