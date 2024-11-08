@@ -46,3 +46,5 @@ docker/neo4j/init/import/cell.csv
 docker/neo4j/init/import/cell_rel.csv
 
 neo4j-h3-init
+
+docker/minio/*

@@ -65,5 +65,4 @@ export type Html2d = {
   size: Size;
   textType: string;
   textUrl: string;
-  styleUrl: string;
 };
